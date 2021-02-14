@@ -1,21 +1,24 @@
-﻿namespace LinkedListAndEnumerator
+﻿using System;
+
+namespace LinkedListAndEnumerator
 {
     class Program
     {
         static void Main(string[] args)
         {
-            MyList list = new MyList();
-            //list.AddToEnd(10);
-            //list.AddToEnd(5);
-            //list.AddToBeginning(11);
-            //list.AddToEnd(6);
-            //list.AddToEnd(7);
-            list.AddSorted(10);
-            list.AddSorted(5);
-            list.AddSorted(11);
-            list.AddSorted(6);
-            list.AddSorted(7);
-            list.Print();
+            var array = new int[] {1,2,3};
+
+            foreach (var a in array)
+            {
+                Console.WriteLine($"A is {a}");
+            }
+
+            var enumerator = array.GetEnumerator();
+            
+            while (enumerator.MoveNext())
+            {
+                Console.WriteLine($"Enumerator A is {enumerator.Current}");
+            }
         }
     }
 }
