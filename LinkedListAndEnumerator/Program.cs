@@ -24,25 +24,22 @@ namespace LinkedListAndEnumerator
 
             var infiniteEnumerable = new MyInfiniteEnumeable();
 
-            //foreach (var i in infiniteEnumerable)
-            //{
-            //    Console.WriteLine($"I is {i}");
-            //}
-
             enumerator = infiniteEnumerable.GetEnumerator();
 
             while (enumerator.MoveNext())
             {
-                Console.WriteLine($"Enumerator A is {enumerator.Current}");
+                Console.WriteLine($"MyEnumerator is {enumerator.Current}");
             }
         }
     }
 
     public class MyInfiniteEnumeable : IEnumerable<int>
     {
+        private int[] mData = new[] {4,5,6};
+
         public IEnumerator<int> GetEnumerator()
         {
-            return new MyInfiniteEnumerator();
+            return new MyInfiniteEnumerator(mData);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -53,19 +50,28 @@ namespace LinkedListAndEnumerator
 
     public class MyInfiniteEnumerator : IEnumerator<int>
     {
+        private int[] _values;
+
+        private int _index = -1;
+
+        public MyInfiniteEnumerator(int[] values)
+        {
+            _values = values;
+        }
+
         public bool MoveNext()
         {
-            Current++;
+            _index++;
 
-            return true;
+            return _index < _values.Length;
         }
 
         public void Reset()
         {
-            Current = 0;
+            _index = 0;
         }
 
-        public int Current { get; private set; } = 0;
+        public int Current => _values[_index];
 
         object IEnumerator.Current => Current;
 
